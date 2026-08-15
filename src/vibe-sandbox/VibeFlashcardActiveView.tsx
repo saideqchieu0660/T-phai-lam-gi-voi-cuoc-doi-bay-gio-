@@ -976,10 +976,10 @@ export const VibeFlashcardActiveView: React.FC<VibeFlashcardActiveViewProps> = R
         <div className="w-full max-w-xl mx-auto mt-4 sm:mt-6 shrink-0 pb-4 flex flex-col gap-3.5">
           <div className="flex w-full items-center justify-between gap-3 sm:gap-4">
               <button onClick={(e) => { e.stopPropagation(); onMark(false); }} className="flex-1 py-4 sm:py-5 bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20 rounded-2xl font-bold text-base sm:text-lg transition active:scale-95 flex items-center justify-center gap-2 border border-red-100 dark:border-red-500/20">
-                <X className="w-5 h-5 sm:w-6 sm:h-6"/> Quên
+                <X className="w-5 h-5 sm:w-6 sm:h-6"/> Quên ({incorrectCount})
               </button>
               <button onClick={(e) => { e.stopPropagation(); onMark(true); }} className="flex-1 py-4 sm:py-5 bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-500/20 rounded-2xl font-bold text-base sm:text-lg transition active:scale-95 flex items-center justify-center gap-2 border border-green-100 dark:border-green-500/20 shadow-sm">
-                <Check className="w-5 h-5 sm:w-6 sm:h-6"/> Nhớ
+                <Check className="w-5 h-5 sm:w-6 sm:h-6"/> Nhớ ({correctCount})
               </button>
           </div>
 
