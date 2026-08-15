@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { get, set } from 'idb-keyval';
 import { Save, RotateCcw, AlertTriangle, X, DatabaseBackup } from 'lucide-react';
 import { toast } from 'sonner';
-import { store, Flashcard } from '../lib/store';
+import { store, Flashcard, saveLocalUserDecks } from '../lib/store';
 import { cn } from '../lib/utils';
 // @ts-ignore
 import { VibeSyncEngine } from '../vibe-sandbox/sync/VibeSyncEngine';
@@ -88,8 +88,12 @@ export function VibeBackupRestoreX({ deckId, deckTitle, cards, onRestored, class
         if (Boolean(card.isHard) !== shouldBeHard) {
           card.isHard = shouldBeHard;
           updatedCount++;
-          
+
           if (currentUser) {
+            // Cập nhật memory store để đồng bộ trạng thái thẻ
+            const statePayload = { isWeakCard: shouldBeHard };
+            
+            // Push qua VibeSyncEngine để đồng bộ server
             await VibeSyncEngine.enqueueChange({
                 type: "UPSERT_CARD_STATE",
                 payload: {
@@ -105,6 +109,7 @@ export function VibeBackupRestoreX({ deckId, deckTitle, cards, onRestored, class
       localStorage.setItem("remind_later_items", JSON.stringify(remindIds));
       
       // Save locally to persist state without reload
+      saveLocalUserDecks();
       store.setDecksLocally(store.getDecks());
       
       if (typeof window !== 'undefined') {

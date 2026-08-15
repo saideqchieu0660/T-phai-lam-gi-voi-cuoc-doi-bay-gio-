@@ -975,7 +975,7 @@ export const VibeFlashcardActiveView: React.FC<VibeFlashcardActiveViewProps> = R
               </button>
           </div>
 
-          {onReviewWeakCards && (
+          {onReviewWeakCards && !deck?.id?.startsWith('remind-later-') && (
              <button
                 type="button"
                 disabled={weakCardsCount === 0}

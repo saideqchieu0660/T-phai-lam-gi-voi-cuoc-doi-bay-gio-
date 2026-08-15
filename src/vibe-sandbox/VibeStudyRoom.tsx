@@ -2638,7 +2638,8 @@ export default function VibeStudyRoom() {
                   <RefreshCcw className="w-4 h-4 text-orange-500" />
                   Ôn tập lại từ đầu (Review All)
                 </button>
-                <button
+                {!deck?.id.startsWith("remind-later-") && (
+                  <button
                     onClick={weakCardIds.length > 0 ? startReviewXCards : undefined}
                     disabled={weakCardIds.length === 0}
                     className={`w-full px-5 py-3.5 rounded-xl font-bold transition flex items-center justify-center gap-2 text-sm border ${
@@ -2650,6 +2651,7 @@ export default function VibeStudyRoom() {
                     <X className="w-4 h-4" />
                     Ôn tập thẻ X ({weakCardIds.length})
                   </button>
+                )}
                 <button
                   onClick={handleBack}
                   className="w-full px-5 py-3.5 rounded-xl bg-orange-500 text-black font-bold hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2 text-sm border-none cursor-pointer"

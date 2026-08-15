@@ -1013,7 +1013,7 @@ const safeSetItem = (key: string, value: string) => {
                                       Chia sẻ học phần
                                     </button>
 
-                                    {isOnline && !offlineDeckIds.has(deck.id) && (
+                                    {isOnline && !offlineDeckIds.has(deck.id) && !deck.id.startsWith("remind-later-") && (
                                       <button
                                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDeckMenu(null); handleDownloadOffline(e, deck.id); }}
                                         className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-zinc-50 dark:hover:bg-zinc-800/50 text-emerald-600 transition-colors"
@@ -1039,7 +1039,7 @@ const safeSetItem = (key: string, value: string) => {
                                       <FileJson className="w-4 h-4" />
                                       Tải JSON (Thẻ X)
                                     </button>
-                                    {isFeatureEnabled('ENABLE_VIBE_BACKUP_RESTORE_X') && (
+                                    {isFeatureEnabled('ENABLE_VIBE_BACKUP_RESTORE_X') && !deck.id.startsWith("remind-later-") && (
                                       <div className="px-4 py-2" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                                         <VibeBackupRestoreX
                                            deckId={deck.id}
@@ -1310,7 +1310,7 @@ const safeSetItem = (key: string, value: string) => {
                                 Chia sẻ học phần
                               </button>
 
-                              {isOnline && !offlineDeckIds.has(deck.id) && (
+                              {isOnline && !offlineDeckIds.has(deck.id) && !deck.id.startsWith("remind-later-") && (
                                 <button
                                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDeckMenu(null); handleDownloadOffline(e, deck.id); }}
                                   className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-zinc-50 dark:hover:bg-zinc-800/50 text-emerald-600 transition-colors"
@@ -1336,7 +1336,7 @@ const safeSetItem = (key: string, value: string) => {
                                 <FileJson className="w-4 h-4" />
                                 Tải JSON (Thẻ X)
                               </button>
-                              {isFeatureEnabled('ENABLE_VIBE_BACKUP_RESTORE_X') && (
+                              {isFeatureEnabled('ENABLE_VIBE_BACKUP_RESTORE_X') && !deck.id.startsWith("remind-later-") && (
                                 <div className="px-4 py-2" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                                   <VibeBackupRestoreX
                                      deckId={deck.id}

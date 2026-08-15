@@ -208,7 +208,7 @@ export const DeckOptionsMenu = ({
               Chia sẻ học phần
             </button>
 
-            {isOnline && !offlineDeckIds.has(deck.id) && (
+            {isOnline && !offlineDeckIds.has(deck.id) && !deck.id.startsWith("remind-later-") && (
               <button
                 onClick={(e) => { setShowDeckMenu(false); handleDownloadOffline(e); }}
                 className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-zinc-50 dark:hover:bg-zinc-800/50 text-emerald-600 transition-colors cursor-pointer"
@@ -236,7 +236,7 @@ export const DeckOptionsMenu = ({
               Tải JSON (Thẻ X)
             </button>
 
-            {isFeatureEnabled('ENABLE_VIBE_BACKUP_RESTORE_X') && (
+            {isFeatureEnabled('ENABLE_VIBE_BACKUP_RESTORE_X') && !deck.id.startsWith("remind-later-") && (
               <div className="px-4 py-2" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                 <VibeBackupRestoreX
                     deckId={deck.id}
