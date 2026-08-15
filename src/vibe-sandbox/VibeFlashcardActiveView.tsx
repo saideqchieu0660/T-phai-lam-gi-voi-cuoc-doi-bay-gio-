@@ -301,9 +301,17 @@ export const VibeFlashcardActiveView: React.FC<VibeFlashcardActiveViewProps> = R
       
       {/* Header */}
       <div className="w-full flex justify-between items-center mb-4 md:mb-6 shrink-0">
-         <button onClick={onBack} className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 flex items-center gap-1.5 font-bold text-sm sm:text-base transition cursor-pointer">
-           <ArrowLeft className="w-5 h-5"/> Quay lại
-         </button>
+         <div className="flex items-center gap-3 sm:gap-4">
+           <button onClick={onBack} className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 flex items-center gap-1.5 font-bold text-sm sm:text-base transition cursor-pointer">
+             <ArrowLeft className="w-5 h-5"/> Quay lại
+           </button>
+           {onRestart && (
+             <button onClick={onRestart} title="Học lại từ đầu" className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 flex items-center gap-1.5 font-bold text-sm sm:text-base transition cursor-pointer bg-zinc-100 dark:bg-zinc-800/50 px-2 sm:px-3 py-1.5 rounded-lg border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700">
+               <RefreshCcw className="w-4 h-4 text-orange-500"/>
+               <span className="hidden sm:inline text-xs sm:text-sm">Học lại</span>
+             </button>
+           )}
+         </div>
          <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-zinc-800 dark:text-zinc-200 px-4 max-w-sm">
            <span className="truncate">{deckTitle}</span>
            <div className="h-3 w-px bg-zinc-350 dark:bg-zinc-700 mx-1"></div>
@@ -968,10 +976,10 @@ export const VibeFlashcardActiveView: React.FC<VibeFlashcardActiveViewProps> = R
         <div className="w-full max-w-xl mx-auto mt-4 sm:mt-6 shrink-0 pb-4 flex flex-col gap-3.5">
           <div className="flex w-full items-center justify-between gap-3 sm:gap-4">
               <button onClick={(e) => { e.stopPropagation(); onMark(false); }} className="flex-1 py-4 sm:py-5 bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-500/20 rounded-2xl font-bold text-base sm:text-lg transition active:scale-95 flex items-center justify-center gap-2 border border-red-100 dark:border-red-500/20">
-                <X className="w-5 h-5 sm:w-6 sm:h-6"/> Quên ({incorrectCount})
+                <X className="w-5 h-5 sm:w-6 sm:h-6"/> Quên
               </button>
               <button onClick={(e) => { e.stopPropagation(); onMark(true); }} className="flex-1 py-4 sm:py-5 bg-green-50 text-green-600 dark:bg-green-500/10 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-500/20 rounded-2xl font-bold text-base sm:text-lg transition active:scale-95 flex items-center justify-center gap-2 border border-green-100 dark:border-green-500/20 shadow-sm">
-                <Check className="w-5 h-5 sm:w-6 sm:h-6"/> Nhớ ({correctCount})
+                <Check className="w-5 h-5 sm:w-6 sm:h-6"/> Nhớ
               </button>
           </div>
 

@@ -197,6 +197,28 @@ export default function VibeStudyRoom() {
   const [isLoading, setIsLoading] = useState(true);
   const [rawDeck, setRawDeck] = useState<any>(() => store.getDeck(deckId));
   const [personalCardStates, setPersonalCardStates] = useState<any[]>([]);
+
+  useEffect(() => {
+    const handleLocalStateUpdate = (e: any) => {
+      if (e.detail && e.detail.states) {
+        setPersonalCardStates(prev => {
+          const next = [...prev];
+          e.detail.states.forEach((s: any) => {
+            const idx = next.findIndex(p => p.id === s.cardId);
+            if (idx >= 0) {
+              next[idx] = { ...next[idx], isWeakCard: s.isWeakCard };
+            } else {
+              next.push({ id: s.cardId, isWeakCard: s.isWeakCard });
+            }
+          });
+          return next;
+        });
+      }
+    };
+    window.addEventListener("vibe-card-states-updated", handleLocalStateUpdate);
+    return () => window.removeEventListener("vibe-card-states-updated", handleLocalStateUpdate);
+  }, []);
+
   const [accessDenied, setAccessDenied] = useState(false);
   const [isOfflineSaved, setIsOfflineSaved] = useState(false);
 

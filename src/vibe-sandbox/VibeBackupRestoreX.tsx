@@ -102,6 +102,9 @@ export function VibeBackupRestoreX({ deckId, deckTitle, cards, onRestored, class
                     isWeakCard: shouldBeHard
                 }
             }).catch(err => console.warn("Queue ignored:", err));
+            
+            if (!globalThis._vibeCardStateUpdates) globalThis._vibeCardStateUpdates = [];
+            globalThis._vibeCardStateUpdates.push({ cardId: card.id, isWeakCard: shouldBeHard });
           }
         }
       }
@@ -114,6 +117,10 @@ export function VibeBackupRestoreX({ deckId, deckTitle, cards, onRestored, class
       
       if (typeof window !== 'undefined') {
         window.dispatchEvent(new CustomEvent("henosis-data-synced"));
+        if (globalThis._vibeCardStateUpdates) {
+          window.dispatchEvent(new CustomEvent("vibe-card-states-updated", { detail: { states: globalThis._vibeCardStateUpdates } }));
+          globalThis._vibeCardStateUpdates = [];
+        }
       }
 
       toast.success(`Đã khôi phục ${lastBackup.hardCardIds.length} thẻ khó (cập nhật ${updatedCount} thẻ)`);
